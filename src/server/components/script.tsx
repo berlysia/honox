@@ -1,4 +1,5 @@
 import type { Manifest } from 'vite'
+import { ensureTrailngSlash } from '../utils/path.js'
 import { HasIslands } from './has-islands.js'
 
 type Options = {
@@ -9,7 +10,6 @@ type Options = {
   nonce?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Script = (options: Options): any => {
   const src = options.src
   if (options.prod ?? import.meta.env.PROD) {
@@ -33,7 +33,7 @@ export const Script = (options: Options): any => {
             <script
               type='module'
               async={!!options.async}
-              src={`${import.meta.env.BASE_URL}${scriptInManifest.file}`}
+              src={`${ensureTrailngSlash(import.meta.env.BASE_URL)}${scriptInManifest.file}`}
               nonce={options.nonce}
             ></script>
           </HasIslands>
